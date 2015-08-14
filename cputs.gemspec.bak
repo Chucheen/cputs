@@ -1,0 +1,13 @@
+Gem::Specification.new do |s|
+  s.name        = 'cputs'
+  s.version     = '0.0.1'
+  s.date        = '2015-07-28'
+  s.summary     = "CustomPuts"
+  s.description = "A simple gem to remember where your puts sentences are"
+  s.authors     = ["JGutierrezC"]
+  s.email       = 'jegut87@gmail.com'
+  # s.files       = ["lib/hola.rb"]
+  s.homepage    =
+    'http://rubygems.org/gems/hola'
+  s.license       = 'MIT'
+end
