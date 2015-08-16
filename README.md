@@ -95,7 +95,7 @@ The output will be as follows (previously defined preffix and suffix):
 
 ### When using rails
 
-Add `puts` to your Gemfile and then add a cputs initializer:
+Add `cputs` to your Gemfile and then add a cputs.rb initializer:
 
 ```
 # config/initializers/cputs.rb
