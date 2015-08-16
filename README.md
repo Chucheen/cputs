@@ -29,6 +29,7 @@ Or using a preffix and/or suffix to make the output more noticeable:
 ```
 
 This way, you'll **NEVER** lose your output messages and hopefully they won't make it to production.
+###Sometimes even the Gems are printing to your console. Find out which gem is doing that by using `CPuts.override_puts` :)
 
 ## Installation
 
@@ -92,6 +93,22 @@ The output will be as follows (previously defined preffix and suffix):
 ----------------------------> /Users/JGutierrezC/AwesomeProjects/the_best/app/controllers/randoms_controller at line 2: Project4 - The name is still to decide. user jgutierrezc <----------------------------
 ```
 
+### When using rails
+
+Add `puts` to your Gemfile and then add a cputs initializer:
+
+```
+# config/initializers/cputs.rb
+
+require 'cputs'
+
+CPuts.override_puts
+CPuts.set_preffix_and_suffix("----------------->\n", "\n<-----------------")
+
+```
+
+Restart your console...
+Done!
 
 ## Contributing
 
