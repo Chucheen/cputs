@@ -5,7 +5,7 @@ module CPuts
         def self.cputs(message, caller)
             matcher = caller.first.match(/^(.*)\:(\d+)/)
             file, line = matcher.captures[0..1] unless matcher.nil?
-            default_puts "#{@preffix}#{file} at line #{line}: #{message}#{@suffix}"
+            default_puts "#{@preffix}#{file} at line #{line}: #{message}#{@suffix}"
         end
 
         def self.preffix(preffix)

@@ -1,14 +1,40 @@
-# Cputs
+# Cputs - Custom Puts
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cputs`. To experiment with that code, run `bin/console` for an interactive prompt.
+##Description
 
-TODO: Delete this and the text above, and describe your gem
+*Custom Puts* is as it's name says, a customized puts command that will always remember you where is the  following message coming from:
+
+```
+Firm Load (0.2ms)  SELECT `table2`.* FROM `table2` INNER JOIN `table1` ON `table2`.`id` = `table2`.`table2_id` WHERE `table2`.`foreign_key_id` = 509122938901 AND (table1.update_at is null)
+Firm Load (0.2ms)  SELECT `table2`.* FROM `table2` INNER JOIN `table1` ON `table2`.`id` = `table2`.`table2_id` WHERE `table1`.`user_id` = 668972  [["user_id", 668972]]
+Project4 - The name is still to decide. user jgutierrezc
+   (0.3ms)  SELECT COUNT(*) FROM `table1` WHERE `table1`.`id` = 166561 AND `table1`.`field_x` = 1
+   (0.2ms)  SELECT COUNT(*) FROM `table1` WHERE `table1`.`id` = 166561 AND `table1`.`field_x` = 1 AND `table1`.`field2` = 0
+```
+
+As you can see, the message `Project4 - The name is still to decide. user jgutierrezc` is a puts message coming from who knows what file.
+
+With **cputs** this message can be changed to this:
+
+```
+/Users/JGutierrezC/AwesomeProjects/the_best/app/controllers/randoms_controller at line 2: Project4 - The name is still to decide. user jgutierrezc
+```
+
+Or using a preffix and/or suffix to make the output more noticeable:
+
+```
+---------------------------->
+/Users/JGutierrezC/AwesomeProjects/the_best/app/controllers/randoms_controller at line 2: Project4 - The name is still to decide. user jgutierrezc
+<----------------------------
+```
+
+This way, you'll **NEVER** lose your output messages and hopefully they won't make it to production.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-```ruby
+```
 gem 'cputs'
 ```
 
@@ -22,17 +48,54 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To use this gem you need to require 'cputs' and configure it as you want to:
 
-## Development
+```
+require 'cputs'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+# to set a message preffix for every output:
+CPuts.set_preffix('<---------')
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+# to set a message suffix for every output:
+CPuts.set_suffix('--------->')
+
+# to set the same preffix and suffix for every output:
+CPuts.set_preffix_and_suffix('-----------------')
+
+# to set different preffix and suffix in a single method for every output:
+CPuts.set_preffix_and_suffix('----------->', '<-----------')
+
+
+```
+
+And use cputs command to output your message:
+
+```
+cputs 'Project4 - The name is still to decide. user jgutierrezc'
+```
+
+Or if you want to replace the usual `puts` command for `cputs` functionality:
+
+```
+CPuts.override_puts
+```
+
+And then use puts:
+
+```
+puts 'Project4 - The name is still to decide. user jgutierrezc'
+```
+
+The output will be as follows (previously defined preffix and suffix):
+
+```
+----------------------------> /Users/JGutierrezC/AwesomeProjects/the_best/app/controllers/randoms_controller at line 2: Project4 - The name is still to decide. user jgutierrezc <----------------------------
+```
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/cputs. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/JGutierrezC/cputs. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct. Remember to test with rspec before :)
 
 
 ## License
