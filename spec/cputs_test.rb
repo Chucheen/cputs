@@ -8,16 +8,21 @@ RSpec.describe "CPuts" do
 
     before(:each) do
         CPuts.set_preffix_and_suffix(nil)
+        CPuts.set_timestamp(false)
     end
 
-    let(:message){'testing cputs'}
-    let(:preffix){'-----'}
-    let(:suffix){'.....'}
+    let(:message){ 'testing cputs' }
+    let(:preffix){ '-----' }
+    let(:suffix){ '.....' }
+    let(:custom_time_format){ '%H:%M:%S' }
+    let(:default_preffix){ CPuts::Functions::Decorators.default_preffix }
+    let(:default_suffix){ CPuts::Functions::Decorators.default_suffix }
+    let(:default_time_format){ CPuts::Functions::Decorators.default_time_format }
 
     describe 'using simple cputs' do
         context 'without preffix and suffix' do
             it 'should print the exact string with line and number' do
-                expect{ cputs message }.to output("#{__FILE__} at line #{__LINE__}: #{message}\n").to_stdout
+                expect{ cputs message }.to output("#{default_preffix}#{__FILE__} at line #{__LINE__}: #{message}#{default_suffix}\n").to_stdout
             end
         end
 
@@ -28,7 +33,7 @@ RSpec.describe "CPuts" do
             end
 
             it 'should print the exact string with preffix, line and number' do
-                expect{ cputs message }.to output("#{preffix}#{__FILE__} at line #{__LINE__}: #{message}\n").to_stdout
+                expect{ cputs message }.to output("#{preffix}#{__FILE__} at line #{__LINE__}: #{message}#{default_suffix}\n").to_stdout
             end
 
         end
@@ -40,7 +45,7 @@ RSpec.describe "CPuts" do
             end
 
             it 'should print the exact string with line, number and suffix' do
-                expect{ cputs message }.to output("#{__FILE__} at line #{__LINE__}: #{message}#{suffix}\n").to_stdout
+                expect{ cputs message }.to output("#{default_preffix}#{__FILE__} at line #{__LINE__}: #{message}#{suffix}\n").to_stdout
             end
 
         end
@@ -68,6 +73,32 @@ RSpec.describe "CPuts" do
                 expect{ cputs message }.to output("#{preffix}#{__FILE__} at line #{__LINE__}: #{message}#{suffix}\n").to_stdout
             end
 
+        end
+
+        context 'with default timestamp' do
+
+            before do
+                CPuts.set_timestamp(true)
+            end
+
+            let(:time_stamp){Time.now.strftime(default_time_format)}
+
+            it 'should print it' do
+                expect{ cputs message }.to output("#{time_stamp} #{default_preffix}#{__FILE__} at line #{__LINE__}: #{message}#{default_suffix}\n").to_stdout
+            end
+        end
+
+        context 'with custom timestamp' do
+
+            before do
+                CPuts.set_timestamp(custom_time_format)
+            end
+
+            let(:time_stamp){Time.now.strftime(custom_time_format)}
+
+            it 'should print as format %H:%M:%S' do
+                expect{ cputs message }.to output("#{time_stamp} #{default_preffix}#{__FILE__} at line #{__LINE__}: #{message}#{default_suffix}\n").to_stdout
+            end
         end
     end
 
@@ -79,7 +110,7 @@ RSpec.describe "CPuts" do
 
         context 'without preffix and suffix' do
             it 'should print the exact string with line and number' do
-                expect{ puts message }.to output("#{__FILE__} at line #{__LINE__}: #{message}\n").to_stdout
+                expect{ puts message }.to output("#{default_preffix}#{__FILE__} at line #{__LINE__}: #{message}#{default_suffix}\n").to_stdout
             end
         end
 
@@ -90,7 +121,7 @@ RSpec.describe "CPuts" do
             end
 
             it 'should print the exact string with preffix, line and number' do
-                expect{ puts message }.to output("#{preffix}#{__FILE__} at line #{__LINE__}: #{message}\n").to_stdout
+                expect{ puts message }.to output("#{preffix}#{__FILE__} at line #{__LINE__}: #{message}#{default_suffix}\n").to_stdout
             end
 
         end
@@ -102,7 +133,7 @@ RSpec.describe "CPuts" do
             end
 
             it 'should print the exact string with line, number and suffix' do
-                expect{ puts message }.to output("#{__FILE__} at line #{__LINE__}: #{message}#{suffix}\n").to_stdout
+                expect{ puts message }.to output("#{default_preffix}#{__FILE__} at line #{__LINE__}: #{message}#{suffix}\n").to_stdout
             end
 
         end
@@ -131,6 +162,33 @@ RSpec.describe "CPuts" do
             end
 
         end
+
+        context 'with default timestamp' do
+
+            before do
+                CPuts.set_timestamp(true)
+            end
+
+            let(:time_stamp){Time.now.strftime(default_time_format)}
+
+            it 'should print it' do
+                expect{ cputs message }.to output("#{time_stamp} #{default_preffix}#{__FILE__} at line #{__LINE__}: #{message}#{default_suffix}\n").to_stdout
+            end
+        end
+
+        context 'with custom timestamp' do
+
+            before do
+                CPuts.set_timestamp(custom_time_format)
+            end
+
+            let(:time_stamp){Time.now.strftime(custom_time_format)}
+
+            it 'should print as format %H:%M:%S' do
+                expect{ cputs message }.to output("#{time_stamp} #{default_preffix}#{__FILE__} at line #{__LINE__}: #{message}#{default_suffix}\n").to_stdout
+            end
+        end
+
     end
 
 end

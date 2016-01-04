@@ -28,6 +28,13 @@ Or using a preffix and/or suffix to make the output more noticeable:
 <----------------------------
 ```
 
+You could also add a Timestamp to every output
+```
+---------------------------->
+2016-01-03T18:28:32 /Users/JGutierrezC/AwesomeProjects/the_best/app/controllers/randoms_controller at line 2: Project4 - The name is still to decide. user jgutierrezc
+<----------------------------
+```
+
 This way, you'll **NEVER** lose your output messages and hopefully they won't make it to production.
 ###Sometimes even the Gems are printing to your console. Find out which gem is doing that by using `CPuts.override_puts` :)
 
@@ -66,8 +73,15 @@ CPuts.set_preffix_and_suffix('-----------------')
 # to set different preffix and suffix in a single method for every output:
 CPuts.set_preffix_and_suffix('----------->', '<-----------')
 
+# to set default timestamp to be shown along with the preffix:
+CPuts.set_timestamp(true)
+
+# to set a custom timestamp to be shown along with the preffix:
+CPuts.set_timestamp('%H:%M:%S')
 
 ```
+
+**Note:** Please refer to http://apidock.com/ruby/DateTime/strftime for time formatting
 
 And use cputs command to output your message:
 
@@ -92,6 +106,20 @@ The output will be as follows (previously defined preffix and suffix):
 ```
 ----------------------------> /Users/JGutierrezC/AwesomeProjects/the_best/app/controllers/randoms_controller at line 2: Project4 - The name is still to decide. user jgutierrezc <----------------------------
 ```
+
+### Defaults
+
+By default preffix is
+```
+----------------->
+```
+
+Timestamp format (if set) is
+```
+%Y-%m-%dT%H:%M:%S (2016-01-03T18:28:32)
+```
+
+Suffix is empty
 
 ### When using rails
 
